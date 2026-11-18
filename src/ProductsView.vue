@@ -44,7 +44,7 @@ async function remove(id){
 
 <template>
     <div>
-        <h1>Productos</h1>
+        <h1 class="text-2xl font-bold">Productos</h1>
         <form @submit.prevent="save">
         <input v-model="form.name" placeholder="Nombre" />
         <input v-model="form.price" type="number" placeholder="Precio" />
