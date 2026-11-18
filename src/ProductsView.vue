@@ -43,27 +43,39 @@ async function remove(id){
 </script>
 
 <template>
-    <div class="max-w-3xl mx-auto p-6">
-        <h1 class="text-3xl font-bold text-blue-600 mb-6">Productos</h1>
-        <form @submit.prevent="save" class="bg-white shadow rounded-lg p-4 mb-6 grid  grid-cols-2 gap-3">
-        <input v-model="form.name" placeholder="Nombre" class="border rounded px-3 py-2"/>
-        <input v-model="form.price" type="number" placeholder="Precio" class="border rounded px-3 py-2"/>
-        <input v-model="form.stock" type="number" placeholder="Stock" class="border rounded px-3 py-2"/>
-        <select v-model="form.category_id" class="border rounded px-3 py-2">
-            <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
-        </select>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Guardar</button>
-        <p v-if="error" style="color: red;" class="col-span-2">{{ error }}</p>
+    <div class="page">
+        <header class="page-header">
+            <h1>Productos</h1>
+            <p class="subtitle">Administra tu inventario</p>
+        </header>
+
+        <form @submit.prevent="save" class="card form">
+            <input v-model="form.name" placeholder="Nombre" class="field"/>
+            <input v-model="form.price" type="number" placeholder="Precio" class="field"/>
+            <input v-model="form.stock" type="number" placeholder="Stock" class="field"/>
+            <select v-model="form.category_id" class="field">
+                <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+            </select>
+            <button class="btn btn-primary" type="submit">Guardar</button>
+            <p v-if="error" class="error">{{ error }}</p>
         </form>
-        <p v-if="loading" class="text-gray-500">Cargando productos...</p>
-        <ul v-else class="bg-white shadow rounded-lg p-4">
-            <li v-for="product in products" :key="product.id" class="flex justify-between items-center border-b py-2">
-                {{ product.name }} - {{ product.price }} - {{ product.stock }} - {{ product.category?.name}}
-                <button @click="form = { ...product }" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded">Editar</button>
-                <button @click="remove(product.id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">Eliminar</button>
+
+        <p v-if="loading" class="loading">Cargando productos...</p>
+        <ul v-else class="card list">
+            <li v-for="product in products" :key="product.id" class="item">
+                <div class="item-info">
+                    <span class="item-name">{{ product.name }}</span>
+                    <span class="item-meta">
+                        <span class="price">S/ {{ product.price }}</span>
+                        <span class="stock">Stock: {{ product.stock }}</span>
+                        <span v-if="product.category?.name" class="badge">{{ product.category?.name }}</span>
+                    </span>
+                </div>
+                <div class="item-actions">
+                    <button @click="form = { ...product }" class="btn btn-edit">Editar</button>
+                    <button @click="remove(product.id)" class="btn btn-delete">Eliminar</button>
+                </div>
             </li>
         </ul>
-       
-       
     </div>
 </template>
