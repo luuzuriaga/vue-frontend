@@ -55,12 +55,12 @@ async function remove(id){
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Guardar</button>
         <p v-if="error" style="color: red;" class="col-span-2">{{ error }}</p>
         </form>
-        <p v-if="loading">Cargando productos...</p>
-        <ul v-else>
-            <li v-for="product in products" :key="product.id">
+        <p v-if="loading" class="text-gray-500">Cargando productos...</p>
+        <ul v-else class="bg-white shadow rounded-lg p-4">
+            <li v-for="product in products" :key="product.id" class="flex justify-between items-center border-b py-2">
                 {{ product.name }} - {{ product.price }} - {{ product.stock }} - {{ product.category?.name}}
-                <button @click="form = { ...product }">Editar</button>
-                <button @click="remove(product.id)">Eliminar</button>
+                <button @click="form = { ...product }" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded">Editar</button>
+                <button @click="remove(product.id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">Eliminar</button>
             </li>
         </ul>
        
