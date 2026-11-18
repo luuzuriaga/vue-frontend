@@ -43,17 +43,17 @@ async function remove(id){
 </script>
 
 <template>
-    <div>
-        <h1 class="text-2xl font-bold">Productos</h1>
-        <form @submit.prevent="save">
-        <input v-model="form.name" placeholder="Nombre" />
-        <input v-model="form.price" type="number" placeholder="Precio" />
-        <input v-model="form.stock" type="number" placeholder="Stock" />
-        <select v-model="form.category_id">
+    <div class="max-w-3xl mx-auto p-6">
+        <h1 class="text-3xl font-bold text-blue-600 mb-6">Productos</h1>
+        <form @submit.prevent="save" class="bg-white shadow rounded-lg p-4 mb-6 grid  grid-cols-2 gap-3">
+        <input v-model="form.name" placeholder="Nombre" class="border rounded px-3 py-2"/>
+        <input v-model="form.price" type="number" placeholder="Precio" class="border rounded px-3 py-2"/>
+        <input v-model="form.stock" type="number" placeholder="Stock" class="border rounded px-3 py-2"/>
+        <select v-model="form.category_id" class="border rounded px-3 py-2">
             <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
         </select>
-        <button type="submit">Guardar</button>
-        <p v-if="error" style="color: red;">{{ error }}</p>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Guardar</button>
+        <p v-if="error" style="color: red;" class="col-span-2">{{ error }}</p>
         </form>
         <p v-if="loading">Cargando productos...</p>
         <ul v-else>
